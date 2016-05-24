@@ -4,10 +4,12 @@
 #' of multivariate time series.
 #'
 #' @param y a \code{ts} object. A multivariate time series.
-#' @param normalise logical. If TRUE, scaling time series to be normally distributed.
+#' @param normalise logical. If TRUE, scaling time series to be normally distributed
+#' with mean 0 and 1.
 #' @param width integer. A window size specified for variance change, level shift,
 #' and lumpiness.
 #'
+#' @return Cognostics matrix for every time series.
 #' @export
 
 tsmeasures <- function(y, normalise = TRUE, width) {
@@ -61,7 +63,7 @@ tsmeasures <- function(y, normalise = TRUE, width) {
   mat <- matrix(, nrow = nr, ncol = nc)
   colnames(mat) <- colnames(tmp)
   mat[!allna, ] <- tmp
-  out <- structure(mat, class = c("features", "matrix"))
+  out <- mat
   return(out)
 }
 
