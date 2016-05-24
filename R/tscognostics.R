@@ -10,6 +10,10 @@
 #' and lumpiness.
 #'
 #' @return Cognostics matrix for every time series.
+#' 
+#' @importFrom RcppRoll roll_mean
+#' @importFrom RcppRoll roll_var
+#' @importFrom ForeCA spectral_entropy
 #' @export
 
 tsmeasures <- function(y, normalise = TRUE, width) {
@@ -223,5 +227,5 @@ CountNAs <- function(x) {
   count_nas <- sum(nonnax)
   out1 <- count_nas/(ending - starting + 1)
   out2 <- count_nas/length(x)
-  return(relativeNA = out1, fixedNA = out2)
+  return(list(relativeNA = out1, fixedNA = out2))
 }
