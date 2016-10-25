@@ -221,7 +221,7 @@ VarTS <- function(x, tspx) {
 
 # Count missing values
 CountNAs <- function(x) {
-  nonnax <- !is.na(x)
+  nonnax <- is.na(x)
   idx <- which(nonnax)
   starting <- idx[1L]
   ending <- idx[length(idx)]
