@@ -14,6 +14,7 @@
 #' @importFrom RcppRoll roll_mean
 #' @importFrom RcppRoll roll_var
 #' @importFrom ForeCA spectral_entropy
+#' @importFrom mgcv gam
 #' @export
 
 tsmeasures <- function(y, normalise = TRUE, width) {
@@ -191,7 +192,7 @@ VarTS <- function(x, tspx) {
                        max(0, min(1, 1 - v.adj/var(detrend, na.rm = TRUE))))
     } else { # No seasonal component
       tt <- 1:len.contx
-      trend0 <- fitted(gam(contx ~ s(tt)))
+      trend0 <- fitted(mgcv::gam(contx ~ s(tt)))
       remainder <- contx - trend0
       deseason <- contx - trend0
       v.adj <- var(trend0, na.rm = TRUE)
@@ -220,7 +221,7 @@ VarTS <- function(x, tspx) {
 
 # Count missing values
 CountNAs <- function(x) {
-  nonnax <- !is.na(x)
+  nonnax <- is.na(x)
   idx <- which(nonnax)
   starting <- idx[1L]
   ending <- idx[length(idx)]
