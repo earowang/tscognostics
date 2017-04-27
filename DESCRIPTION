@@ -9,7 +9,7 @@ Depends:
 Imports:
     mgcv, RcppRoll (>= 0.2.2)
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 URL: https://github.com/earowang/tscognostics
 BugReports: https://github.com/earowang/tscognostics/issues
 License: MIT + file LICENSE

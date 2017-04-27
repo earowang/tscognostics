@@ -22,4 +22,3 @@ Cognostics matrix for every time series.
 The function computes a set of cognostics to summarize statistical features
 of multivariate time series.
 }
-

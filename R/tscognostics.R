@@ -65,10 +65,14 @@ tsmeasures <- function(y, normalise = TRUE, width) {
   tmp <- do.call(cbind, measures)
   nr <- ncol(y)
   nc <- length(measures)
-  mat <- matrix(, nrow = nr, ncol = nc)
-  colnames(mat) <- colnames(tmp)
-  mat[!allna, ] <- tmp
-  out <- mat
+  if (all(!allna)) {
+    out <- tmp
+  } else {
+    mat <- matrix(, nrow = nr, ncol = nc)
+    colnames(mat) <- colnames(tmp)
+    mat[!allna, ] <- tmp
+    out <- mat
+  }
   return(out)
 }
 
