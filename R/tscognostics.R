@@ -46,9 +46,11 @@ tsmeasures <- function(y, normalise = TRUE, width) {
   measures$vchange <- apply(trimx, 2, RVarChange, width = width)
   measures$cpoints <- apply(x, 2, Cpoints)
   measures$fspots <- apply(x, 2, Fspots)
-  missing <- apply(x, 2, CountNAs)
-  measures$relativeNA <- sapply(missing, function(x) x$relativeNA)
-  measures$fixedNA <- sapply(missing, function(x) x$fixedNA)
+  if (all(allna)) {
+    missing <- apply(x, 2, CountNAs)
+    measures$relativeNA <- sapply(missing, function(x) x$relativeNA)
+    measures$fixedNA <- sapply(missing, function(x) x$fixedNA)
+  }
   # Mean and variance are not recommended for non-stationary time series
   # measures$mean <- colMeans(x, na.rm = TRUE)
   # measures$var <- apply(x, 2, var, na.rm = TRUE)
@@ -65,8 +67,8 @@ tsmeasures <- function(y, normalise = TRUE, width) {
   tmp <- do.call(cbind, measures)
   nr <- ncol(y)
   nc <- length(measures)
-  if (all(!allna)) {
-    out <- tmp
+  if (all(!allna)) { # There's no all the missings in the ts collection
+    out <- as.matrix(tmp)
   } else {
     mat <- matrix(, nrow = nr, ncol = nc)
     colnames(mat) <- colnames(tmp)
